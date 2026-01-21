@@ -11,18 +11,28 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/')));
 app.use(cors())
 
-mongoose.connect(process.env.MONGO_URI, {
-    user: process.env.MONGO_USERNAME,
-    pass: process.env.MONGO_PASSWORD,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, function(err) {
-    if (err) {
-        console.log("error!! " + err)
-    } else {
-      //  console.log("MongoDB Connection Successful")
-    }
-})
+const username = process.env.MONGO_USERNAME;
+const password = process.env.MONGO_PASSWORD;
+
+const MONGO_URI = `mongodb+srv://${username}:${password}@supercluster:d83jj.mongodb.net/superData?retryWrites=true&w=majority`;
+
+console.log("Connecting to MongoDB...");
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB connection successful!"))
+  .catch((error) => console.error("MongoDB connection failed:", error));
+  
+// mongoose.connect(process.env.MONGO_URI, {
+//     user: process.env.MONGO_USERNAME,
+//     pass: process.env.MONGO_PASSWORD,
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }, function(err) {
+//     if (err) {
+//         console.log("error!! " + err)
+//     } else {
+//       //  console.log("MongoDB Connection Successful")
+//     }
+// })
 
 var Schema = mongoose.Schema;
 

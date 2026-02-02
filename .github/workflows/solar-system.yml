@@ -7,7 +7,6 @@ on:
       - main
       - 'feature/*'
 
-      
 env:
     MONGO_URI: ${{ vars.MONGO_URI }}
     MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}

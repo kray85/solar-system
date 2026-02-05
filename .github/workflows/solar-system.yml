@@ -99,7 +99,7 @@ jobs:
           with:
             username: ${{ vars.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_PASSWORD }}
-            
+
         - name: Build and push
           uses: docker/build-push-action@v6
           with:
@@ -110,7 +110,7 @@ jobs:
         - name: Docker Image Test
           run: |
             docker images
-            docker run --name solar=sysem-app -d \
+            docker run --name sola-system-app -d \
                  -p 3000:3000 \
                  -e MONGO_URI=$MONGO_URI \
                  -e MONGO_USERNAME=$MONGO_USERNAME  \

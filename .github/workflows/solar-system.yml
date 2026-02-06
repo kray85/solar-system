@@ -167,12 +167,16 @@ jobs:
           - name: Checkout
             uses: actions/checkout@v4
 
-          - name: verify deployment
-            uses: steebchen/kubectl@v2.0.0
+          - name: Install Kubectl CLI
+            uses: azure/setup-kubectl@v4
             with:
-              config: ${{ secrets.KUBE_CONFIG_DATA }}
-              version: v1.26.0
-              command: rollout status deployment/my-app
+              version: 'v1.26.0'
+
+          - name: Set Kubeconfig
+            uses: azure/k8s-set-context@v4
+            with:
+              method: kubeconfig
+              kubeconfig: ${{ secrets.KUBECONFIG }}
 
           - name: Fetch Kubernetes Cluster Details
             run: |
